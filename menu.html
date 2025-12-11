@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TubbyCake - Menú</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="resources/style.css">
+    <style>
+        /* Estilos específicos para el Acordeón */
+        .more-products-content {
+            max-height: 0; overflow: hidden; opacity: 0;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform: translateY(-20px);
+        }
+        .more-products-content.expanded {
+            max-height: 3000px; opacity: 1; transform: translateY(0);
+        }
+        .btn-show-more {
+            margin-top: 20px; font-size: 0.9rem; border-radius: 50px;
+            padding: 8px 25px; background-color: white;
+            border: 2px solid var(--brand-salmon); color: var(--brand-salmon);
+            transition: all 0.3s; font-weight: bold; cursor: pointer;
+        }
+        .btn-show-more:hover {
+            background-color: var(--brand-salmon); color: white; transform: scale(1.05);
+        }
+        .btn-show-more.active i { transform: rotate(180deg); }
+        .card-img-rounded { border-radius: 1.5rem !important; }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER RESPONSIVO -->
+    <header>
+        <div class="header-top">
+            <div class="container d-flex justify-content-between align-items-center header-flex-mobile">
+                <div class="d-flex align-items-center justify-content-center logo-container-mobile">
+                     <div class="bg-white rounded-circle p-2 shadow-sm">
+                        <a href="index.html" class="d-flex align-items-center text-decoration-none">
+                            <div class="bg-white rounded-circle p-1 shadow-sm header-logo-anim">
+                               <img src="resources/images/logo.png" alt="Logo" class="img-fluid" style="width: 30px; height: 45px;">
+                            </div>
+                       </a>
+                     </div>
+                </div>
+                <h1 class="m-0 brand-title text-center">TUBBYCAKE</h1>
+                <div class="text-end user-actions-mobile">
+                    <a href="login.html" class="btn-icon-header d-inline-block mx-2 text-center user-btn-target">
+                        <i class="far fa-user fs-5"></i><br>USUARIO
+                    </a>
+                    <div class="d-inline-block mx-2 text-center cursor-pointer">
+                        <a href="carrito.html" class="btn-icon-header d-inline-block mx-2 text-center">
+                            <i class="fas fa-shopping-cart fs-5"></i><br>CARRITO <span id="cart-count-number"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-custom justify-content-center shadow-sm">
+            <div class="container-fluid justify-content-center">
+                <button class="navbar-toggler w-100 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="fas fa-bars text-danger fs-2"></span> <span class="ms-2 fw-bold text-danger">MENÚ</span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <div class="navbar-nav text-center mt-3 mt-lg-0">
+                        <a class="nav-link active" href="menu.html">PASTELES</a>
+                        <a class="nav-link" href="#galletas">GALLETAS</a>
+                        <a class="nav-link" href="#gelatinas">GELATINAS</a>
+                        <a class="nav-link" href="#bebidas">BEBIDAS</a>
+                        <a class="nav-link" href="contacto.html">CONTACTO</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO -->
+    <div class="container mt-5 mb-5">
+        <div class="text-center mb-5 anim-hidden fade-up">
+            <h2 style="font-size: 3rem; color: var(--brand-red);">NUESTRO MENÚ</h2>
+            <p class="lead" style="color: var(--brand-cafe);">Dulces momentos horneados con amor</p>
+        </div>
+
+        <!-- SECCIÓN 1: PASTELES -->
+        <div id="pasteles" class="mb-5 product-section">
+            <h3 class="mb-4 border-bottom pb-2" style="color: var(--brand-salmon);">🍰 PASTELES</h3>
+            <div class="row">
+                <!-- P1 -->
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="product-card-wrapper anim-hidden fade-up">
+                        <div class="text-center">
+                            <img src="resources/images/chesse.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                            <h4>CHESSE CAKE</h4>
+                            <p class="small px-2">Clásico pastel de queso y mermelada.</p>
+                            <h5 class="text-danger mb-3">$350.00</h5>
+                            <button class="btn btn-tubby btn-add-cart" data-id="1" data-nombre="Chesse Cake" data-precio="350">COMPRAR</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- P2 -->
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="product-card-wrapper anim-hidden fade-up" style="transition-delay: 0.1s;">
+                        <div class="text-center">
+                            <img src="resources/images/flan.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                            <h4>CHOCOFLAN</h4>
+                            <p class="small px-2">Rico flan de vainilla con base de pastel.</p>
+                            <h5 class="text-danger mb-3">$420.00</h5>
+                            <button class="btn btn-tubby btn-add-cart" data-id="2" data-nombre="Chocoflan" data-precio="420">COMPRAR</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- P3 -->
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="product-card-wrapper anim-hidden fade-up" style="transition-delay: 0.2s;">
+                        <div class="text-center">
+                            <img src="resources/images/choco.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                            <h4>FRESICHOCO</h4>
+                            <p class="small px-2">Exquisito pastel de chocolate con fresa.</p>
+                            <h5 class="text-danger mb-3">$280.00</h5>
+                            <button class="btn btn-tubby btn-add-cart" data-id="3" data-nombre="FresiChoco" data-precio="280">COMPRAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACORDEÓN PASTELES -->
+            <div class="more-products-content" id="more-pasteles">
+                <div class="row mt-3">
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="product-card-wrapper">
+                            <div class="text-center">
+                                <img src="resources/images/Moka_oreo.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                                <h4>MOKA-OREO</h4>
+                                <p class="small px-2">Riquísimo pastel sabor moka con Oreo.</p>
+                                <h5 class="text-danger mb-3">$350.00</h5>
+                                <button class="btn btn-tubby btn-add-cart" data-id="4" data-nombre="Moka-Oreo" data-precio="350">COMPRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="product-card-wrapper">
+                            <div class="text-center">
+                                <img src="resources/images/zana.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                                <h4>ZANAHORIA</h4>
+                                <p class="small px-2">Pastel de zanahoria exquisito.</p>
+                                <h5 class="text-danger mb-3">$350.00</h5>
+                                <button class="btn btn-tubby btn-add-cart" data-id="5" data-nombre="Zanahoria" data-precio="350">COMPRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="product-card-wrapper">
+                            <div class="text-center">
+                                <img src="resources/images/cereza.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                                <h4>CEREZA</h4>
+                                <p class="small px-2">Explosión de cereza y chocolate.</p>
+                                <h5 class="text-danger mb-3">$380.00</h5>
+                                <button class="btn btn-tubby btn-add-cart" data-id="6" data-nombre="Cereza" data-precio="380">COMPRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn-show-more" onclick="toggleSection('more-pasteles', this)">
+                    MOSTRAR MÁS <i class="fas fa-chevron-down ms-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 2: GALLETAS -->
+        <div id="galletas" class="mb-5 pt-4">
+            <h3 class="mb-4 border-bottom pb-2" style="color: var(--brand-salmon);">🍪 GALLETAS</h3>
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="product-card-wrapper anim-hidden fade-up">
+                        <div class="text-center">
+                            <img src="resources/images/Ga_m&m.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                            <h4>M&MS 8pz</h4>
+                            <p class="small px-2">Galletas con toppings de M&Ms.</p>
+                            <h5 class="text-danger mb-3">$60.00</h5>
+                            <button class="btn btn-tubby btn-add-cart" data-id="8" data-nombre="M&Ms" data-precio="60">COMPRAR</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="product-card-wrapper anim-hidden fade-up" style="transition-delay: 0.1s;">
+                        <div class="text-center">
+                            <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                            <h4>CHISPAS DE CHOCO 8pz</h4>
+                            <p class="small px-2">Clásicas con chispas Hershey's.</p>
+                            <h5 class="text-danger mb-3">$25.00 c/u</h5>
+                            <button class="btn btn-tubby btn-add-cart" data-id="9" data-nombre="Chispas Choco" data-precio="25">COMPRAR</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="product-card-wrapper anim-hidden fade-up" style="transition-delay: 0.2s;">
+                        <div class="text-center">
+                            <img src="resources/images/Ga_rellenas.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                            <h4>RELLENAS 8pz</h4>
+                            <p class="small px-2">Galletas rellenas de chocolate.</p>
+                            <h5 class="text-danger mb-3">$60.00</h5>
+                            <button class="btn btn-tubby btn-add-cart" data-id="10" data-nombre="Rellenas" data-precio="60">COMPRAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="more-products-content" id="more-galletas">
+                <div class="row mt-3">
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="product-card-wrapper">
+                            <div class="text-center">
+                                <img src="resources/images/Ga_avena.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                                <h4>AVENA 8pz</h4>
+                                <p class="small px-2">Saludables y crujientes.</p>
+                                <h5 class="text-danger mb-3">$30.00 c/u</h5>
+                                <button class="btn btn-tubby btn-add-cart" data-id="11" data-nombre="Galleta Avena" data-precio="30">COMPRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="product-card-wrapper">
+                            <div class="text-center">
+                                <img src="resources/images/Ga_oreo.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                                <h4>RED VELVET OREO 8pz</h4>
+                                <p class="small px-2">Ricas galletas con trozitos de Oreo.</p>
+                                <h5 class="text-danger mb-3">$30.00 c/u</h5>
+                                <button class="btn btn-tubby btn-add-cart" data-id="12" data-nombre="Red Velvet Oreo" data-precio="30">COMPRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="product-card-wrapper">
+                            <div class="text-center">
+                                <img src="resources/images/Ga_manteca.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                                <h4>MANTEQUILLA 8pz</h4>
+                                <p class="small px-2">Galletas clásicas sabor mantequilla.</p>
+                                <h5 class="text-danger mb-3">$30.00 c/u</h5>
+                                <button class="btn btn-tubby btn-add-cart" data-id="13" data-nombre="Mantequilla" data-precio="30">COMPRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn-show-more" onclick="toggleSection('more-galletas', this)">
+                    MOSTRAR MÁS <i class="fas fa-chevron-down ms-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3: GELATINAS -->
+        <div id="gelatinas" class="mb-5 pt-4">
+            <h3 class="mb-4 border-bottom pb-2" style="color: var(--brand-salmon);">🍮 GELATINAS</h3>
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="product-card-wrapper anim-hidden fade-up">
+                        <div class="text-center">
+                            <img src="resources/images/G_cafe.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                            <h4>CAFÉ</h4>
+                            <p class="small px-2">Gelatina con sabor a café.</p>
+                            <h5 class="text-danger mb-3">$280.00</h5>
+                            <button class="btn btn-tubby btn-add-cart" data-id="g1" data-nombre="Gelatina Café" data-precio="280">COMPRAR</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="product-card-wrapper anim-hidden fade-up" style="transition-delay: 0.1s;">
+                        <div class="text-center">
+                            <img src="resources/images/G_mozaico.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                            <h4>MOSAICO</h4>
+                            <p class="small px-2">Cremosa y frutal.</p>
+                            <h5 class="text-danger mb-3">$220.00</h5>
+                            <button class="btn btn-tubby btn-add-cart" data-id="g2" data-nombre="Gelatina Mosaico" data-precio="220">COMPRAR</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="product-card-wrapper anim-hidden fade-up" style="transition-delay: 0.2s;">
+                        <div class="text-center">
+                            <img src="resources/images/G_napolitano.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                            <h4>NAPOLITANO</h4>
+                            <p class="small px-2">Gelatina de 3 sabores diferentes.</p>
+                            <h5 class="text-danger mb-3">$220.00</h5>
+                            <button class="btn btn-tubby btn-add-cart" data-id="g3" data-nombre="Napolitano" data-precio="220">COMPRAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="more-products-content" id="more-gelatinas">
+                <div class="row mt-3">
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="product-card-wrapper">
+                            <div class="text-center">
+                                <img src="resources/images/G_maza.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                                <h4>MAZAPÁN</h4>
+                                <p class="small px-2">Sabor Mazapán.</p>
+                                <h5 class="text-danger mb-3">$30.00</h5>
+                                <button class="btn btn-tubby btn-add-cart" data-id="g4" data-nombre="Mazapan" data-precio="30">COMPRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="product-card-wrapper">
+                            <div class="text-center">
+                                <img src="resources/images/G_oreo.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                                <h4>OREO</h4>
+                                <p class="small px-2">Sabor galleta Oreo.</p>
+                                <h5 class="text-danger mb-3">$200.00</h5>
+                                <button class="btn btn-tubby btn-add-cart" data-id="g5" data-nombre="Gelatina Oreo" data-precio="200">COMPRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="product-card-wrapper">
+                            <div class="text-center">
+                                <img src="resources/images/G_fresaki.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                                <h4>FRESA-KIWI</h4>
+                                <p class="small px-2">Con fruta natural.</p>
+                                <h5 class="text-danger mb-3">$200.00</h5>
+                                <button class="btn btn-tubby btn-add-cart" data-id="g6" data-nombre="Fresa Kiwi" data-precio="200">COMPRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn-show-more" onclick="toggleSection('more-gelatinas', this)">MOSTRAR MÁS <i class="fas fa-chevron-down ms-2"></i></button>
+            </div>
+        </div>
+        
+        <!-- SECCIÓN 4: BEBIDAS -->
+        <div id="bebidas" class="mb-5 pt-4">
+            <h3 class="mb-4 border-bottom pb-2" style="color: var(--brand-salmon);">☕ BEBIDAS</h3>
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="product-card-wrapper anim-hidden fade-up">
+                        <div class="text-center">
+                            <img src="resources/images/B_cafeF.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                            <h4>CAFÉ FRÍO</h4>
+                            <p class="small px-2">Perfecto para días calurosos.</p>
+                            <h5 class="text-danger mb-3">$40.00</h5>
+                            <button class="btn btn-tubby btn-add-cart" data-id="b1" data-nombre="Café Frío" data-precio="40">COMPRAR</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="product-card-wrapper anim-hidden fade-up" style="transition-delay: 0.1s;">
+                        <div class="text-center">
+                            <img src="resources/images/B_frapu.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                            <h4>FRAPPUCCINO</h4>
+                            <p class="small px-2">Café Helado a base de crema.</p>
+                            <h5 class="text-danger mb-3">$60.00</h5>
+                            <button class="btn btn-tubby btn-add-cart" data-id="b2" data-nombre="Frappuccino" data-precio="60">COMPRAR</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="product-card-wrapper anim-hidden fade-up" style="transition-delay: 0.2s;">
+                        <div class="text-center">
+                            <img src="resources/images/B_te.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                            <h4>TÉ</h4>
+                            <p class="small px-2">Té de Hierbabuena.</p>
+                            <h5 class="text-danger mb-3">$30.00</h5>
+                            <button class="btn btn-tubby btn-add-cart" data-id="b3" data-nombre="Té" data-precio="30">COMPRAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="more-products-content" id="more-bebidas">
+                <div class="row mt-3">
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="product-card-wrapper">
+                            <div class="text-center">
+                                <img src="resources/images/B_blue.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                                <h4>FRAPPE BLUEBERRY</h4>
+                                <p class="small px-2">Sabor blueberry.</p>
+                                <h5 class="text-danger mb-3">$60.00</h5>
+                                <button class="btn btn-tubby btn-add-cart" data-id="b4" data-nombre="Frappe Blueberry" data-precio="60">COMPRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="product-card-wrapper">
+                            <div class="text-center">
+                                <img src="resources/images/B_mora.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                                <h4>FRAPPE MORA</h4>
+                                <p class="small px-2">Sabor moras.</p>
+                                <h5 class="text-danger mb-3">$60.00</h5>
+                                <button class="btn btn-tubby btn-add-cart" data-id="b5" data-nombre="Frappe Mora" data-precio="60">COMPRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="product-card-wrapper">
+                            <div class="text-center">
+                                <img src="resources/images/B_cafeC.jpeg" class="img-fluid mb-3 card-img-rounded" style="height: 200px; object-fit: contain;">
+                                <h4>CAFÉ CALIENTE</h4>
+                                <p class="small px-2">Esencial en días lluviosos.</p>
+                                <h5 class="text-danger mb-3">$60.00</h5>
+                                <button class="btn btn-tubby btn-add-cart" data-id="b6" data-nombre="Café Caliente" data-precio="60">COMPRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn-show-more" onclick="toggleSection('more-bebidas', this)">MOSTRAR MÁS <i class="fas fa-chevron-down ms-2"></i></button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER RESPONSIVO -->
+    <footer>
+        <div class="container text-center">
+            <h5 class="mb-3 fw-bold footer-text">SIGUENOS EN NUESTRAS REDES SOCIALES</h5>
+            <div class="row align-items-center mb-2">
+                <div class="col-12 col-md-4 text-md-start ps-md-5 mb-3 mb-md-0 footer-col">
+                    <div class="d-flex gap-3 justify-content-center justify-content-md-start social-container">
+                        <a href="https://www.facebook.com/profile.php?id=61583938794867" target="_blank" class="text-decoration-none"><i class="fab fa-facebook text-primary fa-2x social-icon"></i></a>
+                        <a href="https://www.tiktok.com/@tubbycake0" target="_blank" class="text-decoration-none"><i class="fab fa-tiktok text-dark fa-2x social-icon"></i></a>
+                        <a href="https://www.instagram.com/tubby.cake?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="text-decoration-none"><i class="fab fa-instagram text-danger fa-2x social-icon"></i></a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 my-2 footer-col">
+                    <div class="footer-logo shadow-sm d-flex align-items-center justify-content-center mx-auto">
+                        <i class="fas fa-cupcake fa-2x" style="color: var(--brand-salmon);"></i>
+                         <img src="resources/images/logo.png" alt="Logo" class="img-fluid logo-footer-img" style="width: 40px; height: 55px;">
+                    </div>
+                    <h5>TUBBYCAKE</h5>
+                </div>
+                <div class="col-12 col-md-4 text-center text-md-end footer-col">
+                    <div class="footer-text fw-bold links-container">
+                        <a href="nosotros.html" class="text-dark text-decoration-none mx-2">NOSOTROS</a>
+                        <a href="terminos.html" class="text-dark text-decoration-none mx-2">TERMINOS</a>
+                    </div>
+                </div>
+            </div>
+            <div class="small fw-bold border-top pt-2 border-dark-subtle footer-text">
+                © 2025 TUBBY CAKE.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- SCRIPT COMPLETO -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => { document.querySelectorAll('.anim-hidden').forEach(el => el.classList.add('active')); }, 100);
+            updateHeaderCount();
+
+            // Usuario
+            const userStored = localStorage.getItem('tubbyUser');
+            const userBtnLink = document.querySelector('.user-btn-target') || document.querySelector('.fa-user').closest('a'); 
+            if (userStored && userBtnLink) {
+                const userData = JSON.parse(userStored);
+                userBtnLink.removeAttribute('href'); 
+                userBtnLink.classList.add('user-menu-container'); 
+                userBtnLink.innerHTML = `
+                    <div onclick="toggleUserMenu()" style="cursor: pointer;">
+                        <i class="far fa-user fs-5 text-success"></i><br>
+                        <span style="font-size: 0.7rem; color: var(--brand-cafe);">HOLA, ${userData.name.toUpperCase()}</span>
+                    </div>
+                    <div class="user-dropdown-menu" id="userDropdown">
+                        <button class="btn btn-logout fw-bold" onclick="logoutAction()">CERRAR SESIÓN</button>
+                    </div>`;
+            }
+
+            // Compra
+            document.querySelectorAll('.btn-add-cart').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const user = localStorage.getItem('tubbyUser');
+                    if (!user) {
+                        showTubbyToast("⚠️ Debes iniciar sesión");
+                        setTimeout(() => window.location.href = "login.html", 2000);
+                        return;
+                    }
+                    this.style.transform = "scale(0.95)";
+                    setTimeout(() => this.style.transform = "scale(1)", 100);
+                    const id = this.getAttribute('data-id');
+                    const nombre = this.getAttribute('data-nombre');
+                    const precio = this.getAttribute('data-precio');
+                    if(id && nombre) addToCart(id, nombre, parseFloat(precio));
+                });
+            });
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+            });
+            document.querySelectorAll('.anim-hidden').forEach(el => observer.observe(el));
+        });
+
+        function toggleSection(targetId, btn) {
+            const targetContent = document.getElementById(targetId);
+            const isAlreadyOpen = targetContent.classList.contains('expanded');
+            document.querySelectorAll('.more-products-content').forEach(content => content.classList.remove('expanded'));
+            document.querySelectorAll('.btn-show-more').forEach(b => {
+                b.innerHTML = 'MOSTRAR MÁS <i class="fas fa-chevron-down ms-2"></i>';
+                b.classList.remove('active');
+            });
+            if (!isAlreadyOpen) {
+                targetContent.classList.add('expanded');
+                btn.innerHTML = 'MOSTRAR MENOS <i class="fas fa-chevron-up ms-2"></i>';
+                btn.classList.add('active');
+            }
+        }
+
+        function toggleUserMenu() {
+            const menu = document.getElementById('userDropdown');
+            if(menu) menu.classList.toggle('show');
+        }
+
+        function logoutAction() {
+            localStorage.removeItem('tubbyUser');
+            window.location.reload();
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.closest('.user-menu-container')) {
+                const dropdowns = document.getElementsByClassName("user-dropdown-menu");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    if (dropdowns[i].classList.contains('show')) dropdowns[i].classList.remove('show');
+                }
+            }
+        }
+
+        function addToCart(id, nombre, precio) {
+            let cart = JSON.parse(localStorage.getItem('tubbyCart')) || [];
+            const existing = cart.find(item => item.id === id);
+            if (existing) existing.cantidad++;
+            else cart.push({ id, nombre, precio, cantidad: 1 });
+            localStorage.setItem('tubbyCart', JSON.stringify(cart));
+            updateHeaderCount();
+            showTubbyToast(`Agregaste ${nombre} 🧁`);
+        }
+
+        function updateHeaderCount() {
+            const cart = JSON.parse(localStorage.getItem('tubbyCart')) || [];
+            const countSpan = document.getElementById('cart-count-number');
+            if (countSpan) countSpan.innerText = cart.reduce((acc, item) => acc + item.cantidad, 0) || '';
+        }
+
+        function showTubbyToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'tubby-toast';
+            toast.innerText = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.classList.add('active'), 10);
+            setTimeout(() => { toast.classList.remove('active'); setTimeout(() => toast.remove(), 500); }, 3000);
+        }
+    </script>
+</body>
+</html>

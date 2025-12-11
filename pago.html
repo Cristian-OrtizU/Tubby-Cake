@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TubbyCake - Finalizar Compra</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="resources/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <div class="container d-flex justify-content-between align-items-center header-flex-mobile">
+                <div class="d-flex align-items-center logo-container-mobile">
+                     <div class="bg-white rounded-circle p-2 shadow-sm">
+                        <a href="index.html" class="d-flex align-items-center text-decoration-none">
+                            <div class="bg-white rounded-circle p-1 shadow-sm header-logo-anim">
+                               <img src="resources/images/logo.png" alt="Logo" class="img-fluid" style="width: 30px; height: 45px;">
+                            </div>
+                       </a>
+                     </div>
+                </div>
+                <h1 class="m-0 brand-title text-center">TUBBYCAKE</h1>
+                <div class="text-end user-actions-mobile">
+                    <a href="login.html" class="btn-icon-header d-inline-block mx-2 text-center user-btn-target">
+                        <i class="far fa-user fs-5"></i><br>USUARIO
+                    </a>
+                    <div class="d-inline-block mx-2 text-center cursor-pointer">
+                        <a href="carrito.html" class="btn-icon-header d-inline-block mx-2 text-center">
+                            <i class="fas fa-shopping-cart fs-5"></i><br>CARRITO <span id="cart-count-number"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-md navbar-custom justify-content-center shadow-sm">
+             <div class="container-fluid justify-content-center">
+                <div class="navbar-nav text-center">
+                    <a class="nav-link" href="carrito.html"><i class="fas fa-arrow-left me-2"></i>VOLVER AL CARRITO</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center anim-hidden fade-up">
+            <div class="col-md-9">
+                <div class="card border-0 shadow-lg p-4" style="border-radius: 20px;">
+                    <h2 class="text-center mb-4" style="color: var(--brand-red);">FINALIZAR COMPRA</h2>
+                    
+                    <div class="alert alert-light border text-center mb-4">
+                        Total a Pagar: <strong class="fs-4 text-success" id="checkout-total">$0.00</strong>
+                    </div>
+
+                    <form id="paymentForm" onsubmit="event.preventDefault(); processPayment();">
+                        
+                        <!-- 1. DATOS DE ENVÍO -->
+                        <h4 class="mb-3" style="color: var(--brand-salmon);"><i class="fas fa-truck me-2"></i>Datos de Envío</h4>
+                        <div class="row g-3 mb-4">
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Nombre Completo</label>
+                                <input type="text" id="clientName" class="form-control" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Dirección de Entrega</label>
+                                <input type="text" id="clientAddress" class="form-control" placeholder="Calle, Número, Colonia" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Ciudad</label>
+                                <input type="text" id="clientCity" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Teléfono</label>
+                                <input type="tel" id="clientPhone" class="form-control" 
+                                       oninput="this.value = this.value.replace(/[^0-9]/g, '')" 
+                                       maxlength="10" placeholder="10 dígitos" required>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <!-- 2. SELECCIÓN DE MÉTODO DE PAGO -->
+                        <h4 class="mb-3" style="color: var(--brand-salmon);"><i class="fas fa-wallet me-2"></i>Método de Pago</h4>
+                        
+                        <div class="row g-3 mb-4">
+                            <div class="col-4">
+                                <div class="payment-selector active" onclick="selectPayment('card')">
+                                    <div class="payment-icon"><i class="far fa-credit-card"></i></div>
+                                    <div class="small fw-bold">Tarjeta</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="payment-selector" onclick="selectPayment('paypal')">
+                                    <div class="payment-icon"><i class="fab fa-paypal"></i></div>
+                                    <div class="small fw-bold">PayPal</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="payment-selector" onclick="selectPayment('cash')">
+                                    <div class="payment-icon"><i class="fas fa-money-bill-wave"></i></div>
+                                    <div class="small fw-bold">Efectivo</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECCIÓN A: TARJETA DE CRÉDITO -->
+                        <div id="details-card" class="payment-details active">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">Nombre en la Tarjeta</label>
+                                    <input type="text" class="form-control card-required" placeholder="Como aparece en la tarjeta">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">Número de Tarjeta</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                        <input type="text" class="form-control card-required" id="cardNumber"
+                                               placeholder="0000 0000 0000 0000" maxlength="19">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Vencimiento</label>
+                                    <input type="text" class="form-control card-required" id="cardExpiry"
+                                           placeholder="MM/AA" maxlength="5">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">CVV</label>
+                                    <input type="password" class="form-control card-required" 
+                                           placeholder="123" maxlength="3"
+                                           oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECCIÓN B: PAYPAL (Redirección) -->
+                        <div id="details-paypal" class="payment-details text-center py-4">
+                            <div class="paypal-box shadow-sm">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="paypal-logo-img" style="height: 40px; margin-bottom: 20px;">
+                                
+                                <p class="mb-4 text-muted">Serás redirigido al sitio seguro de PayPal para completar tu pago.</p>
+                                
+                                <!-- Botón que simula ir a PayPal -->
+                                <button type="button" class="btn btn-paypal-blue" onclick="processPayPalRedirect(this)">
+                                    Pagar en PayPal <i class="fas fa-external-link-alt ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- SECCIÓN C: EFECTIVO -->
+                        <div id="details-cash" class="payment-details text-center py-3">
+                            <div class="alert alert-warning border-0" style="background-color: #fff3cd; color: #856404;">
+                                <i class="fas fa-hand-holding-usd me-2 fa-2x mb-2 d-block"></i>
+                                <strong>Pago contra entrega</strong><br>
+                                Pagarás en efectivo al momento de recibir tus postres.
+                            </div>
+                            <p class="small text-muted">Nuestros repartidores llevan cambio para billetes de hasta $500.</p>
+                        </div>
+
+                        <!-- Botón Final (Solo visible para Tarjeta y Efectivo) -->
+                        <div class="d-grid gap-2 mt-5" id="mainPayButtonContainer">
+                            <button type="submit" class="btn btn-tubby btn-lg shadow" id="payButton">
+                                CONFIRMAR PEDIDO
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container text-center">
+            <div class="small fw-bold pt-2 footer-text">
+                © 2025 TUBBY CAKE. PAGOS SEGUROS (SIMULACIÓN)
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        let currentMethod = 'card';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => { document.querySelectorAll('.anim-hidden').forEach(el => el.classList.add('active')); }, 100);
+            setupCardInputs();
+            
+            const cart = JSON.parse(localStorage.getItem('tubbyCart')) || [];
+            const total = cart.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+            document.getElementById('checkout-total').innerText = `$${total.toFixed(2)}`;
+
+            if(total === 0) { alert("Tu carrito está vacío."); window.location.href = "menu.html"; }
+
+            const user = JSON.parse(localStorage.getItem('tubbyUser'));
+            if(user && user.name) document.getElementById('clientName').value = user.name;
+        });
+
+        // --- SELECTOR DE MÉTODO ---
+        function selectPayment(method) {
+            currentMethod = method;
+
+            // Estilos botones
+            document.querySelectorAll('.payment-selector').forEach(el => el.classList.remove('active'));
+            if(method === 'card') document.querySelectorAll('.payment-selector')[0].classList.add('active');
+            if(method === 'paypal') document.querySelectorAll('.payment-selector')[1].classList.add('active');
+            if(method === 'cash') document.querySelectorAll('.payment-selector')[2].classList.add('active');
+
+            // Mostrar sección
+            document.querySelectorAll('.payment-details').forEach(el => el.classList.remove('active'));
+            document.getElementById('details-' + method).classList.add('active');
+
+            // Lógica de Botón Principal y Requireds
+            const mainBtnContainer = document.getElementById('mainPayButtonContainer');
+            const cardInputs = document.querySelectorAll('.card-required');
+
+            if (method === 'paypal') {
+                mainBtnContainer.style.display = 'none'; // Ocultar botón principal
+                cardInputs.forEach(input => input.removeAttribute('required'));
+            } else {
+                mainBtnContainer.style.display = 'block'; // Mostrar botón principal
+                if (method === 'card') {
+                    cardInputs.forEach(input => input.setAttribute('required', 'required'));
+                } else { // Cash
+                    cardInputs.forEach(input => input.removeAttribute('required'));
+                }
+            }
+        }
+
+        function setupCardInputs() {
+            document.getElementById('cardNumber').addEventListener('input', function(e) {
+                let value = this.value.replace(/\D/g, '');
+                this.value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+            });
+            document.getElementById('cardExpiry').addEventListener('input', function(e) {
+                let value = this.value.replace(/[^0-9]/g, '');
+                if (value.length >= 2) value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                this.value = value;
+            });
+        }
+
+        // --- LÓGICA ESPECIAL PAYPAL ---
+        function processPayPalRedirect(btn) {
+            // Validar datos de envío primero
+            if(!document.getElementById('clientName').value || !document.getElementById('clientAddress').value || !document.getElementById('clientPhone').value) {
+                alert("⚠️ Por favor completa tus Datos de Envío arriba antes de ir a PayPal.");
+                return;
+            }
+
+            // 1. Abrir PayPal real en otra pestaña (Para realismo)
+            window.open('https://www.paypal.com/mx/signin', '_blank');
+
+            // 2. Simular espera en nuestra página
+            btn.innerHTML = '<i class="fas fa-sync fa-spin me-2"></i> Esperando confirmación de PayPal...';
+            btn.disabled = true;
+
+            // 3. Finalizar pedido automáticamente después de 5 segundos
+            setTimeout(() => {
+                finishOrder();
+            }, 5000);
+        }
+
+        // --- PROCESO GENERAL ---
+        function processPayment() {
+            const btn = document.getElementById('payButton');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> PROCESANDO...';
+            setTimeout(() => { finishOrder(); }, 2000);
+        }
+
+        // --- GUARDAR Y REDIRIGIR ---
+        function finishOrder() {
+            const orderData = {
+                id: 'ORD-' + Date.now(),
+                date: new Date().toLocaleString(),
+                method: currentMethod.toUpperCase(),
+                customer: {
+                    name: document.getElementById('clientName').value,
+                    address: document.getElementById('clientAddress').value,
+                    city: document.getElementById('clientCity').value,
+                    phone: document.getElementById('clientPhone').value
+                },
+                items: JSON.parse(localStorage.getItem('tubbyCart')) || [],
+                total: document.getElementById('checkout-total').innerText
+            };
+
+            localStorage.setItem('lastOrder', JSON.stringify(orderData));
+            localStorage.removeItem('tubbyCart');
+            window.location.href = "gracias.html";
+        }
+    </script>
+
+</body>
+</html>
